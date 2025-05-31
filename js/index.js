@@ -174,7 +174,7 @@ function updateContentRow(containerId, items) {
     card.addEventListener("click", () => {
       const id = item.id;
       const type = item.title ? "movie" : "tv"; // Check if it's a movie or TV show
-      window.location.href = `./Pages/details.html?type=${type}&id=${id}`;
+      window.location.href = `/pages/details.html?type=${type}&id=${id}`;
     });
 
     card.appendChild(img);
