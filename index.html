@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome | MovieApp</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body, html {
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      background: linear-gradient(to right, #000000, #1a1a1a);
+      color: white;
+    }
+    .hero-container {
+      text-align: center;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      position: relative;
+      animation: fadeInBg 2s ease-in-out;
+    }
+    .hero-container h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, #ff416c, #ff4b2b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: slideInDown 1s ease-out;
+    }
+    .hero-container p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      color: #ccc;
+      animation: fadeInUp 1.2s ease-in-out;
+    }
+    .enter-btn {
+      padding: 1rem 2.5rem;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      border: none;
+      border-radius: 50px;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(0, 114, 255, 0.6);
+      transition: all 0.4s ease;
+      position: relative;
+      animation: pulse 2s infinite;
+    }
+    .enter-btn:hover {
+      transform: scale(1.05);
+      background-position: right center;
+      box-shadow: 0 15px 40px rgba(0, 114, 255, 0.8);
+    }
+
+    @keyframes fadeInBg {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideInDown {
+      0% { transform: translateY(-50px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes fadeInUp {
+      0% { transform: translateY(30px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(0, 114, 255, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 20px rgba(0, 114, 255, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(0, 114, 255, 0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero-container">
+    <h1>Welcome to MovieApp</h1>
+    <p>Your portal to the world of movies and TV shows. Discover trending content, explore details, and manage your favorites with ease.</p>
+   <button class="enter-btn" onclick="location.href='pages/loginsignup.html'">
+  Continue to Login
+</button>
+
+  </div>
+</body>
+</html>

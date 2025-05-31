@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="/Scss/dist/loginsignup.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  <div class="login-page">
+    <div class="login-box">
+      <h2 id="form-title">Login</h2>
+
+
+      <form id="auth-form">
+        <div class="input-group">
+          <label>
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="auth-email" placeholder="Email" required />
+          </label>
+
+
+          <label>
+            <i class="fas fa-lock"></i>
+            <input type="password" id="auth-password" placeholder="Password" required />
+          </label>
+
+
+          <label id="confirm-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="auth-confirm" placeholder="Confirm Password" />
+          </label>
+        </div>
+
+
+        <div class="form-links">
+          <a href="#" id="forgot-password">Forgot password?</a>
+        </div>
+
+
+        <button type="submit" class="gradient-btn" id="submit-btn">Login</button>
+      </form>
+
+
+      <p class="or-text">Or Sign In Using</p>
+      <div class="social-login">
+        <button id="google-login" class="google-btn">
+          <i class="fab fa-google"></i> Sign in with Google
+        </button>
+      </div>
+
+
+      <p class="signup-switch" id="toggle-mode">
+        Don't have an account? <a href="#">Sign Up</a>
+      </p>
+    </div>
+  </div>
+
+
+  <script type="module" src="/js/loginsignup.js"></script>
+</body>
+</html>

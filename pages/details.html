@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/Scss/loginsignup.css" />
+    <link rel="stylesheet" href="/Scss/details.css" />
+    <title>ScreenScape</title>
+    <style>
+      .footer {
+        position: relative;
+
+        color: #fff;
+        padding: 4rem 2rem 2rem;
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      .footer__bg img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.1;
+        z-index: -1;
+      }
+
+      .footer__container {
+        max-width: 1200px;
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 3rem;
+      }
+
+      .footer__branding {
+        flex: 1;
+        min-width: 250px;
+        text-align: center;
+      }
+
+      .footer__branding img {
+        width: 60px;
+        margin-bottom: 10px;
+      }
+
+      .footer__branding h2 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+      }
+
+      .footer__branding p {
+        font-size: 0.9rem;
+        color: #ccc;
+      }
+
+      .footer__links {
+        display: flex;
+        flex: 2;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 2rem;
+      }
+
+      .footer__column h4 {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+        color: #fff;
+      }
+
+      .footer__column ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .footer__column ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer__column ul li a {
+        color: #ccc;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer__column ul li a:hover {
+        color: #ff4c4c;
+      }
+
+      .social-icons a {
+        font-size: 1.2rem;
+        margin-right: 10px;
+        color: #ccc;
+        transition: transform 0.3s, color 0.3s;
+      }
+
+      .social-icons a:hover {
+        transform: scale(1.2);
+        color: #ff4c4c;
+      }
+
+      /* 🔁 Responsive Design */
+      @media (max-width: 768px) {
+        .footer__container {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+
+        .footer__links {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .footer__column {
+          width: 100%;
+        }
+      }
+      /* Tablet (768px and below) */
+      @media (max-width: 768px) {
+        .footer__container {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+
+        .footer__links {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .footer__column {
+          margin-bottom: 30px;
+        }
+      }
+
+      /* Mobile (480px and below) */
+      @media (max-width: 480px) {
+        .footer {
+          padding: 2rem 1rem;
+        }
+
+        .footer__branding h2 {
+          font-size: 1.5rem;
+        }
+
+        .footer__column h4 {
+          font-size: 1rem;
+        }
+
+        .social-icons a {
+          font-size: 1.1rem;
+          margin: 0 6px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="logo">
+        <h6>ScreenScape</h6>
+      </div>
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+      </div>
+      <nav id="nav-menu">
+        <a href="/index.html">Dashboard</a>
+        <a href="/pages/movies.html">Feature Films</a>
+        <a href="/pages/tvseries.html">Shows </a>
+        <a href="/pages/watchlist.html">Favourite </a>
+      </nav>
+
+      <div id="icons">
+        <div class="user-icon">
+          <i class="fa-regular fa-user"></i>
+        </div>
+        <button id="logout-btn" class="logout-btn">Logout</button>
+      </div>
+    </header>
+    <main>
+      <section class="details-container">
+        <div class="poster">
+          <img id="poster" src="" alt="Movie Poster" />
+          <button
+            class="icon-button watchlist-button"
+            id="add-watch-later"
+            data-category="watchLater"
+          >
+            <i class="fa fa-plus"></i>
+          </button>
+          <button
+            class="icon-button favorites-button"
+            id="add-favorites"
+            data-category="favorites"
+          >
+            <i class="fa fa-heart"></i>
+          </button>
+        </div>
+        <div class="details-content">
+          <h1 id="title"></h1>
+          <div id="genres" class="genres"></div>
+          <p id="description" class="description"></p>
+          <div class="casts">
+            <h3>Casts</h3>
+            <div id="cast-list" class="cast-list"></div>
+          </div>
+        </div>
+      </section>
+      <section class="trailer">
+        <h2>International Trailer</h2>
+        <iframe
+          id="trailer"
+          src=""
+          title="Trailer"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </section>
+      <section class="similar">
+        <div class="content-container">
+          <div class="content-text">
+            <h2>Similar</h2>
+          </div>
+          <div class="content-row"></div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <!-- background image moved into HTML -->
+      <img
+        src="/Assets/footer-bg.png"
+        alt="Footer background"
+        class="footer__bg"
+      />
+
+      <div class="footer__container">
+        <div class="footer__branding">
+          <h2>ScreenScape</h2>
+          <p>Your gateway to cinematic adventures</p>
+        </div>
+
+        <div class="footer__links">
+          <div class="footer__column">
+            <h4>Explore</h4>
+            <ul>
+              <li><a href="/index.html">Dashboard</a></li>
+              <li><a href="/pages/movies.html">Feature Films</a></li>
+              <li><a href="/pages/tvseries.html">Shows</a></li>
+              <li><a href="/pages/watchlist.html"> Favourite</a></li>
+            </ul>
+          </div>
+          <div class="footer__column">
+            <h4>Support</h4>
+            <ul>
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">Terms of Use</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Contact Us</a></li>
+            </ul>
+          </div>
+          <div class="footer__column">
+            <h4>Follow Us</h4>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/js/details.js"></script>
+    <script src="/js/loginsignup.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+  </body>
+</html>
