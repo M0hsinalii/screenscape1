@@ -1,120 +1,670 @@
-@import "/index.scss";
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap");
 
-.modal-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+$font-family: "Montserrat", sans-serif;
+
+$body-bg: #f65757ba;
+$main-color: #1abc9c;
+$accent-color: #000000;
+$txt-color: #ecf0f1;
+
+$small-mobile: 360px;
+$large-mobile: 640px;
+$tablet: 880px;
+$desktop: 1024px;
+
+@mixin overlay {
+  background-color: rgba(#000000, 0.6);
+}
+
+/* === Reset === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* === Base Styles === */
+body {
+  font-family: $font-family;
+  background-color: $body-bg;
+  color: $txt-color;
+}
+
+/* === Header === */
+header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(3px);
-  z-index: 1000;
-  visibility: hidden; // Initially hidden
-  opacity: 0; // Initially invisible
-  transition: visibility 0s, opacity 0.3s ease-in-out;
+  z-index: 4;
+  padding: 20px 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: height 0.3s ease, background-color 0.3s ease;
 
-  &.active {
-    visibility: visible;
-    opacity: 1; // Makes the modal visible
+  &.scrolled {
+    background-color: $accent-color;
   }
 
-  .modaltwo {
-    background: #1b1b1b;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 400px;
-    height: auto;
-    padding: $spacing-mobile;
-    position: relative;
-    color: $txt-color;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 
-    #close-btn {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: transparent;
-      border: none;
-      color: $txt-color;
-      font-size: 24px;
-      cursor: pointer;
+    img {
+      height: 50px;
     }
 
-    #signup-form h2,
-    #login-form h2 {
-      margin-bottom: 20px;
-      text-align: center;
+    h6 {
       font-size: 1.5rem;
-      color: $main-color;
     }
+  }
 
-    .form-wrapper {
-      &.hidden {
-        display: none;
-      }
+  nav {
+    display: flex;
+    gap: 30px;
 
-      &.visible {
-        display: block;
-      }
-    }
-
-    .form-group {
-      margin-bottom: 15px;
-
-      label {
-        display: block;
-        font-size: 0.9rem;
-        margin-bottom: 5px;
-        color: lighten($txt-color, 20%);
-      }
-
-      input {
-        width: 94%;
-        padding: 10px;
-        border: 1px solid #333;
-        border-radius: 5px;
-        background: #222;
-        color: $txt-color;
-        font-size: 1rem;
-      }
-    }
-
-    .primary-btn {
-      width: 94%;
-      padding: 10px;
-      margin-top: 5px;
-      margin-bottom: 10px;
-      background: $main-color;
-      color: $body-bg;
-      border: none;
-      border-radius: 5px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s ease;
+    a {
+      text-decoration: none;
+      color: $txt-color;
+      font-size: 20px;
+      transition: color 0.6s;
+      padding-bottom: 2px;
 
       &:hover {
-        background: darken($main-color, 10%);
+        color: $main-color;
+      }
+
+      &.active {
+        border-bottom: 2px solid $main-color;
       }
     }
 
-    p {
+    /* Mobile nav (hidden by default) */
+    @media (max-width: 768px) {
+      display: none;
+      flex-direction: column;
+      background-color: #000; /* Changed from #111 to pure black */
+      width: 100%;
+      position: absolute;
+      top: 80px;
+      left: 0;
+      z-index: 999;
+      padding: 20px 0;
       text-align: center;
-      font-size: 0.85rem;
-      color: lighten($txt-color, 20%);
 
-      .toggle-form {
-        color: $main-color;
-        cursor: pointer;
-        text-decoration: underline;
-        margin-left: 5px;
+      &.show {
+        display: flex;
+      }
+
+      a {
+        color: #fff;
+        padding: 10px;
 
         &:hover {
-          color: darken($main-color, 10%);
+          background: #222;
         }
       }
     }
+  }
+
+  #icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 20px;
+    cursor: pointer;
+
+    i {
+      color: $txt-color;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $main-color;
+      }
+    }
+
+    #logout-btn {
+      display: none;
+      background-color: $main-color;
+      border: none;
+      padding: 7px 7px;
+      color: $txt-color;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: darken($main-color, 10%);
+      }
+    }
+
+    .menu-toggle {
+      width: 50px;
+      height: 50px;
+      background-color: #fff;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      z-index: 1000;
+
+      span {
+        display: block;
+        width: 20px;
+        height: 3px;
+        background-color: #000;
+        transition: all 0.3s ease;
+      }
+
+      &.active {
+        span:nth-child(1) {
+          transform: rotate(45deg) translate(3px, 3px);
+        }
+        span:nth-child(2) {
+          transform: rotate(-45deg) translate(3px, -3px);
+        }
+      }
+    }
+
+    @media (max-width: 768px) {
+      gap: 15px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 20px 20px;
+  }
+}
+
+/* === Hero Section === */
+.hero-section {
+  position: relative;
+  padding: 8rem 0;
+  display: flex;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  gap: 7pc;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    @include overlay;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-image: linear-gradient(to top, $body-bg, rgba(#000, 0));
+  }
+
+  .hero-text {
+    position: relative;
+    z-index: 2;
+    max-width: 45%;
+    padding-left: 110px;
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+
+      button {
+        padding: 15px 30px;
+        color: $txt-color;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      .btn-first {
+        background-color: $main-color;
+        border: none;
+        border-radius: 20px;
+
+        &:hover {
+          background-color: $accent-color;
+          color: $body-bg;
+        }
+      }
+
+      .btn-second {
+        background-color: transparent;
+        border: 1px solid $txt-color;
+        border-radius: 20px;
+
+        &:hover {
+          background-color: $txt-color;
+          color: $main-color;
+        }
+      }
+    }
+  }
+
+  .hero-image {
+    position: relative;
+    z-index: 2;
+
+    img {
+      width: 300px;
+      border-radius: 10px;
+    }
+  }
+
+  .hero-navigation {
+    position: absolute;
+    z-index: 3;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    .prev {
+      margin-left: 20px;
+    }
+    .next {
+      margin-right: 20px;
+    }
+
+    button {
+      background: none;
+      border: none;
+      color: $txt-color;
+      font-size: 2.5rem;
+      cursor: pointer;
+      transition: transform 0.3s;
+
+      &:hover {
+        transform: scale(2.1);
+      }
+    }
+
+    @media (max-width: $large-mobile) {
+      .prev {
+        margin-left: 10px;
+      }
+      .next {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  @media (max-width: $large-mobile) {
+    .hero-image {
+      display: none;
+    }
+    .hero-text {
+      max-width: 94%;
+      padding-left: 40px;
+    }
+  }
+}
+
+/* === Content Section === */
+#content-section {
+  margin: 40px 110px;
+
+  .content-text {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 40px;
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    .btn-third {
+      padding: 5px 20px;
+      color: $txt-color;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+      background-color: transparent;
+      border: 1px solid $txt-color;
+      border-radius: 20px;
+
+      &:hover {
+        background-color: $txt-color;
+        color: $main-color;
+      }
+
+      a {
+        text-decoration: none;
+        color: $txt-color;
+
+        &:hover {
+          color: $main-color;
+        }
+      }
+    }
+  }
+
+  .content-row {
+    display: flex;
+    gap: 15px;
+    overflow: hidden;
+
+    .card {
+      position: relative;
+      flex: 0 0 auto;
+      overflow: hidden;
+      width: 150px;
+
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 20px;
+        transition: opacity 0.3s ease;
+
+        &:hover {
+          opacity: 0.4;
+        }
+      }
+
+      .card-title {
+        font-size: 1rem;
+        padding: 10px;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: $main-color;
+        }
+      }
+
+      &::after {
+        content: "\25B6";
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 50px;
+        background-color: $main-color;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      &:hover::after {
+        opacity: 1;
+      }
+    }
+  }
+
+  @media (max-width: $tablet) {
+    margin: 40px 70px;
+
+    .content-text {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .content-row {
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: $large-mobile) {
+    margin: 40px 20px;
+  }
+}
+
+/* === Footer === */
+.footer {
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 2rem;
+  color: #fff;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.footer__bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: -1;
+}
+
+.footer__container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 3rem;
+}
+
+.footer__branding {
+  flex: 1;
+  min-width: 250px;
+  text-align: center;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  p {
+    font-size: 1rem;
+    color: #ccc;
+  }
+}
+
+.footer__links {
+  flex: 2;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 2rem;
+
+  .footer__column {
+    h4 {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      li {
+        margin-bottom: 10px;
+
+        a {
+          color: #ccc;
+          text-decoration: none;
+          transition: color 0.3s;
+
+          &:hover {
+            color: #ff4c4c;
+          }
+        }
+      }
+    }
+  }
+
+  .social-icons {
+    a {
+      font-size: 1.2rem;
+      margin-right: 10px;
+      color: #ccc;
+      transition: transform 0.3s, color 0.3s;
+
+      &:hover {
+        transform: scale(1.2);
+        color: #ff4c4c;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 2rem 1rem;
+  }
+
+  .footer__container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer__links {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+
+    .footer__column {
+      margin-bottom: 30px;
+      h4 {
+        font-size: 1rem;
+      }
+    }
+    .social-icons {
+      a {
+        font-size: 1.1rem;
+        margin: 0 6px;
+      }
+    }
+  }
+
+  .footer__branding h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* === Responsive Breakpoints === */
+@media (min-width: $tablet) and (max-width: $desktop) {
+  header {
+    padding: 20px 60px;
+  }
+
+  .hero-section {
+    .hero-text {
+      max-width: 45%;
+      padding-left: 70px;
+    }
+  }
+
+  #content-section {
+    margin: 40px 70px;
+  }
+
+  .footer__links {
+    gap: 3rem;
+  }
+}
+
+@media (min-width: $large-mobile) and (max-width: $tablet) {
+  header {
+    padding: 20px 20px;
+
+    nav {
+      gap: 20px;
+    }
+
+    #icons {
+      gap: 20px;
+    }
+  }
+
+  .hero-section {
+    .hero-navigation {
+      .prev {
+        margin-left: 10px;
+      }
+      .next {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  #content-section {
+    margin: 40px;
+  }
+
+  .footer__links {
+    gap: 2rem;
+  }
+}
+
+@media (min-width: $small-mobile) and (max-width: $large-mobile) {
+  header {
+    padding: 20px 20px;
+
+    nav {
+      gap: 2em;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: $body-bg;
+      justify-content: center;
+      align-items: center;
+      padding: 30px 0;
+
+      a {
+        font-size: 1.5rem;
+      }
+    }
+
+    #icons {
+      gap: 20px;
+    }
+  }
+
+  .hero-section {
+    .hero-navigation {
+      .prev {
+        margin-left: 10px;
+      }
+      .next {
+        margin-right: 10px;
+      }
+    }
+    .hero-text {
+      max-width: 93%;
+      padding-left: 40px;
+    }
+    .hero-image {
+      display: none;
+    }
+  }
+
+  #content-section {
+    margin: 40px 20px;
+  }
+
+  .footer__links {
+    gap: 20px;
   }
 }

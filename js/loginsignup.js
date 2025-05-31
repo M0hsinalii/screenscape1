@@ -1,5 +1,3 @@
-// File: js/loginSignup.js
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
 import {
   getAuth,
@@ -10,9 +8,8 @@ import {
   sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
 
-// -----------------------------
-// 1. Firebase Configuration
-// -----------------------------
+
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyAXQUjQmWLHbTgIj2Y4qjboYsIMtJmT-IM",
   authDomain: "movies-6c6f6.firebaseapp.com",
@@ -23,91 +20,85 @@ const firebaseConfig = {
   measurementId: "G-Q95F50QR4C"
 };
 
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-// -----------------------------
-// 2. Toggle Between Login & Sign‐Up
-// -----------------------------
-let isLogin = true;
 
-const formTitle     = document.getElementById("form-title");
-const confirmGroup  = document.getElementById("confirm-group");
-const submitBtn     = document.getElementById("submit-btn");
-const toggleMode    = document.getElementById("toggle-mode");
-const authForm      = document.getElementById("auth-form");
+// Toggle Logic
+let isLogin = true;
+const formTitle = document.getElementById("form-title");
+const confirmGroup = document.getElementById("confirm-group");
+const submitBtn = document.getElementById("submit-btn");
+const toggleMode = document.getElementById("toggle-mode");
+const authForm = document.getElementById("auth-form");
+
 
 toggleMode.addEventListener("click", (e) => {
   e.preventDefault();
   isLogin = !isLogin;
 
+
   if (isLogin) {
-    formTitle.textContent       = "Login";
+    formTitle.textContent = "Login";
     confirmGroup.classList.remove("show");
-    submitBtn.textContent       = "Login";
-    toggleMode.innerHTML        = `Don't have an account? <a href="#">Sign Up</a>`;
+    submitBtn.textContent = "Login";
+    toggleMode.innerHTML = `Don't have an account? <a href="#">Sign Up</a>`;
   } else {
-    formTitle.textContent       = "Sign Up";
+    formTitle.textContent = "Sign Up";
     confirmGroup.classList.add("show");
-    submitBtn.textContent       = "Sign Up";
-    toggleMode.innerHTML        = `Already have an account? <a href="#">Login</a>`;
+    submitBtn.textContent = "Sign Up";
+    toggleMode.innerHTML = `Already have an account? <a href="#">Login</a>`;
   }
 });
 
-// -----------------------------
-// 3. Handle Login / Sign‐Up Submission
-// -----------------------------
+
+// Login or Signup
 authForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const email       = document.getElementById("auth-email").value.trim();
-  const password    = document.getElementById("auth-password").value;
+
+  const email = document.getElementById("auth-email").value.trim();
+  const password = document.getElementById("auth-password").value;
   const confirmPass = document.getElementById("auth-confirm").value;
 
-  // If signing up, ensure passwords match
+
   if (!isLogin && password !== confirmPass) {
-    alert("❌ Passwords do not match.");
-    return;
+    return alert("❌ Passwords do not match.");
   }
 
+
   if (isLogin) {
-    // LOGIN FLOW
     signInWithEmailAndPassword(auth, email, password)
       .then((userCred) => {
         alert("✅ Logged in as " + userCred.user.email);
-        // Redirect to index.html after successful login
-        window.location.href = "index.html";
+        window.location.href = "movies.html";
       })
-      .catch((err) => {
-        alert("❌ Login failed: " + err.message);
-      });
+      .catch((err) => alert("❌ Login failed: " + err.message));
   } else {
-    // SIGN-UP FLOW
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCred) => {
         alert("✅ Registered as " + userCred.user.email);
-        // Redirect to index.html after successful registration
-        window.location.href = "index.html";
+        window.location.href = "movies.html";
       })
-      .catch((err) => {
-        alert("❌ Signup failed: " + err.message);
-      });
+      .catch((err) => alert("❌ Signup failed: " + err.message));
   }
 });
 
-// -----------------------------
-// 4. Forgot Password Handler
-// -----------------------------
+
+// Forgot Password
 document.getElementById("forgot-password").addEventListener("click", (e) => {
   e.preventDefault();
   const email = document.getElementById("auth-email").value.trim();
+
 
   if (!email) {
     alert("⚠️ Please enter your email above to receive a reset link.");
     return;
   }
+
 
   sendPasswordResetEmail(auth, email)
     .then(() => {
@@ -118,15 +109,13 @@ document.getElementById("forgot-password").addEventListener("click", (e) => {
     });
 });
 
-// -----------------------------
-// 5. Google Sign‐In Handler
-// -----------------------------
+
+// Google Login
 document.getElementById("google-login").addEventListener("click", () => {
   signInWithPopup(auth, provider)
     .then((result) => {
       alert("✅ Google Login Successful as " + result.user.email);
-      // Redirect to index.html after successful Google login
-      window.location.href = "index.html";
+      window.location.href = "movies.html";
     })
     .catch((error) => {
       alert("❌ Google Sign-In Failed: " + error.message);
