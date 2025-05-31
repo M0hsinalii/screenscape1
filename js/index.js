@@ -58,7 +58,7 @@ function navigateHero(direction) {
 
 document.querySelector(".btn-first").addEventListener("click", () => {
   const movieId = movies[currentIndex].id;
-  window.location.href = `./Pages/details.html?type=movie&id=${movieId}`;
+  window.location.href = `pages/details.html?type=movie&id=${movieId}`;
 });
 
 // Event Listeners for Navigation Buttons
