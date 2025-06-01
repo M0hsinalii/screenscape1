@@ -8,7 +8,6 @@ import {
   sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
 
-
 // Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyAXQUjQmWLHbTgIj2Y4qjboYsIMtJmT-IM",
@@ -20,85 +19,79 @@ const firebaseConfig = {
   measurementId: "G-Q95F50QR4C"
 };
 
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-
 // Toggle Logic
 let isLogin = true;
-const formTitle = document.getElementById("form-title");
-const confirmGroup = document.getElementById("confirm-group");
-const submitBtn = document.getElementById("submit-btn");
-const toggleMode = document.getElementById("toggle-mode");
-const authForm = document.getElementById("auth-form");
-
+const formTitle     = document.getElementById("form-title");
+const confirmGroup  = document.getElementById("confirm-group");
+const submitBtn     = document.getElementById("submit-btn");
+const toggleMode    = document.getElementById("toggle-mode");
+const authForm      = document.getElementById("auth-form");
 
 toggleMode.addEventListener("click", (e) => {
   e.preventDefault();
   isLogin = !isLogin;
 
-
   if (isLogin) {
-    formTitle.textContent = "Login";
+    formTitle.textContent       = "Login";
     confirmGroup.classList.remove("show");
-    submitBtn.textContent = "Login";
-    toggleMode.innerHTML = `Don't have an account? <a href="#">Sign Up</a>`;
+    submitBtn.textContent       = "Login";
+    toggleMode.innerHTML        = `Don't have an account? <a href="#">Sign Up</a>`;
   } else {
-    formTitle.textContent = "Sign Up";
+    formTitle.textContent       = "Sign Up";
     confirmGroup.classList.add("show");
-    submitBtn.textContent = "Sign Up";
-    toggleMode.innerHTML = `Already have an account? <a href="#">Login</a>`;
+    submitBtn.textContent       = "Sign Up";
+    toggleMode.innerHTML        = `Already have an account? <a href="#">Login</a>`;
   }
 });
-
 
 // Login or Signup
 authForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
+  const email      = document.getElementById("auth-email").value.trim();
+  const password   = document.getElementById("auth-password").value;
+  const confirmPass= document.getElementById("auth-confirm").value;
 
-  const email = document.getElementById("auth-email").value.trim();
-  const password = document.getElementById("auth-password").value;
-  const confirmPass = document.getElementById("auth-confirm").value;
-
-
+  // If signing up, check passwords match
   if (!isLogin && password !== confirmPass) {
     return alert("❌ Passwords do not match.");
   }
 
-
   if (isLogin) {
+    // Log in existing user
     signInWithEmailAndPassword(auth, email, password)
       .then((userCred) => {
         alert("✅ Logged in as " + userCred.user.email);
-        window.location.href = "movies.html";
+        // Redirect to dashboard.html (absolute path)
+        window.location.href = "/dashboard.html";
       })
       .catch((err) => alert("❌ Login failed: " + err.message));
   } else {
+    // Create new user
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCred) => {
         alert("✅ Registered as " + userCred.user.email);
-        window.location.href = "movies.html";
+        // Redirect to dashboard.html (absolute path)
+        window.location.href = "/dashboard.html";
       })
       .catch((err) => alert("❌ Signup failed: " + err.message));
   }
 });
-
 
 // Forgot Password
 document.getElementById("forgot-password").addEventListener("click", (e) => {
   e.preventDefault();
   const email = document.getElementById("auth-email").value.trim();
 
-
   if (!email) {
     alert("⚠️ Please enter your email above to receive a reset link.");
     return;
   }
-
 
   sendPasswordResetEmail(auth, email)
     .then(() => {
@@ -109,13 +102,13 @@ document.getElementById("forgot-password").addEventListener("click", (e) => {
     });
 });
 
-
 // Google Login
 document.getElementById("google-login").addEventListener("click", () => {
   signInWithPopup(auth, provider)
     .then((result) => {
       alert("✅ Google Login Successful as " + result.user.email);
-      window.location.href = "movies.html";
+      // Redirect to dashboard.html (absolute path)
+      window.location.href = "/dashboard.html";
     })
     .catch((error) => {
       alert("❌ Google Sign-In Failed: " + error.message);
