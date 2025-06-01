@@ -1,4 +1,4 @@
-const API_KEY = "00c39ab56da9cde1508182e6ec0fd2ee";
+const API_KEY = "e5fa1dbace5c9c0c9b6cb22d747b4a91";
 const BASE_URL = "https://api.themoviedb.org/3";
 
 let currentIndex = 0; // Tracks the current movie in the slider
